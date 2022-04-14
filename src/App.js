@@ -1,64 +1,49 @@
-import { useState, useTransition } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
 
-const [calc, setCalc] = useState(0);
-const [firstNum, setFirstNum] = useState(0);
-const [opr, setOpr] = useState('')
-
-const [result, setResult] = useState('');
-
-const operators = ['+', '-', '*', '/', '.'];
-
-const toLocaleString = (calc) =>
-  String(calc).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1 ");
-
-const removeSpaces = (calc) => calc.toString().replace(/\s/g, "");
-
-
-const updateCalc =(e) => {
- let input = e.target.value;
- if (calc === 0) {
-   setCalc(input);
-  if (input[0] === '0'){
-  setCalc(calc)
-}} else if(operators.includes(input)){
-  setCalc(calc + input);
-  setOpr(input)
-}
-else {
-  setCalc(calc + input);
-}
-}
-
-
-
-const calculate = () => {
-  setCalc(eval(calc));
-    
-  };
-
-
-const deleteCalc = () => {
-  if(calc === " "){
-     return;
-  } 
-    
-    const value = calc.slice(0, -1);
-    setCalc(value);
-    if (value.length < 1){
-    setCalc(0)
+  const [calc, setCalc] = useState(0);
+ 
+  const operators = ['+', '-', '*', '/', '.'];
+  
+  const updateCalc =(e) => {
+   let input = e.target.value;
+   if (calc === 0) {
+     setCalc(input);
+    if (input[0] === '0'){
+    setCalc(calc)
+  }} else if(operators.includes(input)){
+    setCalc(calc + input);
   }
-}
+  else {
+    setCalc(calc + input);
+  }
+  }
+  
+  const calculate = () => {
+    setCalc(eval(calc));
+      
+    };
 
-const deleteAll = () => {
-  if(calc === ""){
-    return;
- }
-  setCalc(0);
-  setResult(0);
-}
+  const deleteCalc = () => {
+    if(calc === " "){
+       return;
+    } 
+      
+      const value = calc.slice(0, -1);
+      setCalc(value);
+      if (value.length < 1){
+      setCalc(0)
+    }
+  }
+  
+  const deleteAll = () => {
+    if(calc === ""){
+      return;
+   }
+    setCalc(0);
+  }
 
  return (
     <div className="App">
